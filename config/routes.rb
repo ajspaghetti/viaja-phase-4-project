@@ -11,13 +11,13 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
 
   # Logout
-  delete '/logout', to: 'sesstions#destroy'
+  delete '/logout', to: 'sessions#destroy'
 
   # Me (stay logged in)
   get '/me', to: "users#show"
 
 
-  resources :experiences, only: [:index, :show, :create, :update, :delete]
+  resources :experiences #, only: [:index, :show, :create, :update, :delete]
   resources :destinations, only: [:index, :show, :create]
   resources :users
   
