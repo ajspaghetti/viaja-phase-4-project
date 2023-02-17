@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     end
 
     def authorize
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session[:user_id] == @current_user.id 
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session[:user_id] === @current_user.id 
     end
 
 end
