@@ -1,15 +1,8 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email, :image_url, :bio, :personal_experiences_destinations, :personal_experiences_activities
 
-  has_many :experiences
-  has_many :activities
-  has_many :destinations
+  attributes :id, :username, :location, :number_of_exps
 
-  def personal_experiences_destinations
-    self.object.experiences.group_by{|experience| experience.destination_id}
-  end
-
-  def personal_experiences_activities
-    self.object.experiences.group_by{|experience| experience.activity_id}
+  def number_of_exps
+    object.experiences.length
   end
 end

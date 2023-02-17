@@ -1,7 +1,7 @@
 class DestinationSerializer < ActiveModel::Serializer
-  attributes :id, :title, :image_url, :city, :region, :country
+  attributes :id, :place_name, :city, :region, :country
 
-  has_many :experiences
-  has_many :activities
-
+  def average_exps_rating
+    object.experiences.average(:rating)
+  end
 end

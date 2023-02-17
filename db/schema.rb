@@ -10,18 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_181952) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_17_000608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "activities", force: :cascade do |t|
-    t.string "title"
-    t.string "image_url"
-  end
-
   create_table "destinations", force: :cascade do |t|
-    t.string "title"
-    t.string "image_url"
+    t.string "place_name"
     t.string "city"
     t.string "region"
     t.string "country"
@@ -29,9 +23,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_181952) do
 
   create_table "experiences", force: :cascade do |t|
     t.string "title"
-    t.text "description"
-    t.string "image_url"
-    t.integer "activity_id"
+    t.string "activity"
+    t.string "description"
+    t.integer "rating"
     t.integer "destination_id"
     t.integer "user_id"
   end
@@ -39,9 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_181952) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
-    t.string "email"
-    t.string "image_url"
-    t.text "bio"
+    t.string "location"
   end
 
 end

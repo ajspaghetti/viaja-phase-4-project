@@ -1,26 +1,28 @@
 Rails.application.routes.draw do
-  resources :users, only: [:index]
-  resources :activities
-  resources :destinations
-  resources :experiences
-
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
-
-  post "/registerform", to: "users#create"
-  get "/me", to: "users#show"
-  patch "/edit", to: "users#update"
-
-  post "/experiencecreate", to: "experiences#create"
-  delete "/experiencedestroy", to: "experiences#destroy"
-  get "/experienceshow", to: "experiences#show"
-  patch "/experienceupdate", to: "experience#update"
-  
-
 
   get '*path',
     to: 'fallback#index',
     constraints: ->(req) { !req.xhr? && req.format.html? }
-  
-end
 
+  # Register route
+  post '/register', to: 'users#create'
+
+  # Login
+  post '/login', to: 'sessions#create'
+
+  # Logout
+  delete '/logout', to: 'sesstions#destroy'
+
+  # Me (stay logged in)
+  get '/me', to: "users#show"
+
+
+  resources :experiences, only: [:index, :show, :create, :update, :delete]
+  resources :destinations, only: [:index, :show, :create]
+  resources :users
+  
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Defines the root path route ("/")
+  # root "articles#index"
+end

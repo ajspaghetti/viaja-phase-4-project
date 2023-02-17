@@ -1,38 +1,52 @@
 class UsersController < ApplicationController
-  
-  skip_before_action :authorized, only: :create
 
-  def index
-    users = User.all
-    render json: users, status: :ok
-  end
+    skip_before_action :authenticated_user, only: [:create, :show]
+    before_action :authorize, only: [:update, :destroy]
 
-  def show
-    @current_user = User.find_by(id: session[:user_id])
-    render json: @current_user
-  end
+    rescue_from ActiveRecord::RecordInvalid, with: :invalid
+    rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
-  def create
-    user = User.create(user_params)
-    session[:user_id] = user.id
-    render json: user, status: :created
-  end
+    def create
+        user = User.create!(user_params)
+        session[:user_id] = user.id
+        render json: user, status: :created
+    end
 
-  # def update
-  #   user = User.find(params[:id])
-  #   user.update!(user_params)
-  #   render json: user, status: :ok
-  # end
+    def show
+        if params[:id]
+            render json: User.find(params[:id]), status: :ok, serializer: UserExperiencesSerializer
+        else
+            render json: @current_user, status: :ok
+        end
+    end
 
-  # def destroy
-  #   user = user.find(params[:id])
-  #   user.destroy
-  # end
+    def index
+        render json: User.all, status: :ok
+    end
 
-  private
+    def update
+        updated_user = User.find (params[:id])
+        updated_user.update!(user_params)
+        render json: updated_user, status: :accepted
+    end
 
-  def user_params
-    params.permit(:username, :password, :email, :image_url, :bio)
-  end
+    def destroy
+        render json: User.find(params[:id]).destroy!
+        head :no_content
+    end
+
+    private
+
+    def user_params
+        params.permit(:username, :password, :location)
+    end
+
+    def not_found
+        render json: { error: "User not found" }, status: :not_found
+    end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session[:user_id] == @current_user.id 
+    end
 
 end

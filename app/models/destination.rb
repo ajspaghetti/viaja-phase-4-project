@@ -1,10 +1,7 @@
 class Destination < ApplicationRecord
     has_many :experiences
-    has_many :activities, through: :experiences
+    has_many :users, through: :experiences
 
-    validates :title, presence: true
-    # validates :image_url, presence: true
-    validates :city, presence: true
-    validates :region, presence: true
-    validates :country, presence: true
+    validates :place_name, presence: true, uniqueness: true
+    validates :city, :region, :country, presence: true
 end

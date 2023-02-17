@@ -1,9 +1,7 @@
 class Experience < ApplicationRecord
-    belongs_to :destination
-    belongs_to :activity
     belongs_to :user
+    belongs_to :destination
 
-    validates :title, presence: true
-    validates :description, presence: true
-    # validates :image_url, presence: true
+    validates :title, :activity, :description, presence: true
+    validates :rating, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }, presence: true
 end
