@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import DestinationCard from './DestinationCard'
+import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 function DestinationContainer() {
 
@@ -30,7 +32,16 @@ function DestinationContainer() {
 
             </div>
             </div>
-        </div>
+            <br/>
+        <br/>
+        <br/>
+            <div>
+                <Link to='/'>
+                    <Button>Home</Button>
+                </Link>
+            </div>
+            </div>
+       
     )
 }
 
