@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from './components/Home'
+import Login from './components/Login'
+import NavBar from './components/NavBar'
+import Register from './components/Register'
+import ExperienceCard from './components/ExperienceCard'
+import ExperienceContainer from './components/ExperienceContainer'
+import ExperienceForm from './components/ExperienceForm'
+import DestinationCard from './components/DestinationCard'
+import DestinationContainer from './components/DestinationContainer'
+import DestinationForm from './components/DestinationForm'
 
 function App() {
   const [count, setCount] = useState(0);
